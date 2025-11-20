@@ -1,0 +1,1941 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apresentação IMACX 2025</title>
+<!-- Import Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- Import FontAwesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+    /* ============================================
+    IMACX TOKENS & BASE
+    ============================================ */
+    :root {
+        --spacing: 0.25rem;
+
+        /* Colors */
+        --accent-100: #ff9900;
+        --accent-200: #e68a00;
+
+        --background: #0a0a0a;
+        --foreground: #fafafa;
+        --card: #141414;
+        --border: #3f3f3f;
+        --muted-foreground: #a3a3a3;
+
+        --success: #10b981;
+        --warning: #f59e0b;
+        --destructive: #ef4444;
+
+        /* Fonts */
+        --font-geist-sans: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        --font-geist-mono: "Geist Mono", "SF Mono", Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        background: var(--background);
+        color: var(--foreground);
+        font-family: var(--font-geist-sans);
+        margin: 0;
+        padding: 40px 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 40px;
+        min-height: 100vh;
+    }
+
+    /* ============================================
+    SLIDE CONTAINER (16:9 RATIO)
+    ============================================ */
+    .slide-container {
+        position: relative;
+        width: 100%;
+        max-width: 1200px;
+        aspect-ratio: 16/9;
+        background: var(--card);
+        border: 1px dashed var(--border);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        padding: calc(var(--spacing) * 12);
+        box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        container-type: inline-size;
+    }
+
+    /* Barra de topo laranja */
+    .header-bar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 6px;
+        background: var(--accent-100);
+        z-index: 10;
+    }
+
+    /* ============================================
+    ELEMENTOS GRÁFICOS (Backgrounds)
+    ============================================ */
+    .geometric-element {
+        position: absolute;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    .circle-1 {
+        width: 60cqw;
+        height: 60cqw;
+        top: -20cqw;
+        right: -10cqw;
+        border: 1px dashed var(--accent-100);
+        opacity: 0.15;
+    }
+
+    .circle-2 {
+        width: 40cqw;
+        height: 40cqw;
+        bottom: -10cqw;
+        left: -5cqw;
+        border: 1px solid var(--border);
+        opacity: 0.3;
+    }
+
+    /* ============================================
+    TIPOGRAFIA & CONTEÚDO GERAL
+    ============================================ */
+    .slide-content {
+        position: relative;
+        z-index: 1;
+        max-width: 90%;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 0;
+        padding-bottom: calc(var(--spacing) * 18);
+        margin-bottom: 0;
+    }
+
+    .title {
+        font-family: var(--font-geist-sans);
+        font-size: clamp(28px, 4.5cqw, 56px);
+        line-height: 1.1;
+        font-weight: 700;
+        margin: 0 0 calc(var(--spacing) * 4) 0;
+        letter-spacing: -0.03em;
+        text-transform: uppercase;
+        flex-shrink: 0;
+    }
+
+    .subtitle {
+        font-size: clamp(16px, 2cqw, 24px);
+        color: var(--foreground);
+        margin: 0 0 calc(var(--spacing) * 6) 0;
+        font-weight: 400;
+        border-left: 3px solid var(--accent-100);
+        padding-left: calc(var(--spacing) * 4);
+    }
+
+    h2 {
+        font-family: var(--font-geist-sans);
+        font-size: 2.5cqw;
+        margin-bottom: calc(var(--spacing) * 4);
+        font-weight: 600;
+    }
+
+    h3 {
+        font-family: var(--font-geist-sans);
+        font-size: 1.5cqw;
+        margin: 0 0 calc(var(--spacing) * 2) 0;
+        font-weight: 600;
+        color: var(--accent-100);
+    }
+
+    p {
+        font-size: 1.1cqw;
+        line-height: 1.5;
+        margin: 0 0 calc(var(--spacing) * 3) 0;
+        color: var(--muted-foreground);
+    }
+
+    .vs-highlight {
+        color: var(--accent-100);
+        font-family: var(--font-geist-mono);
+        font-weight: 400;
+        padding: 0 calc(var(--spacing) * 2);
+        font-style: italic;
+    }
+
+    /* ============================================
+    ESTILOS DO SLIDE 1 (CAPA)
+    ============================================ */
+    .legend-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: calc(var(--spacing) * 6);
+        margin-bottom: calc(var(--spacing) * 6);
+    }
+
+    .legend-item {
+        display: flex;
+        align-items: center;
+        gap: calc(var(--spacing) * 2);
+    }
+
+    .legend-color {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+    }
+
+    .legend-color.square { border-radius: 2px; }
+
+    .legend-label {
+        font-size: 1.2cqw;
+        text-transform: uppercase;
+        font-family: var(--font-geist-mono);
+        color: var(--muted-foreground);
+        margin: 0;
+        letter-spacing: 0.05em;
+    }
+
+    .red-color { background: var(--destructive); }
+    .orange-color { background: var(--warning); }
+    .green-color { background: var(--success); }
+
+    .data-note {
+        font-family: var(--font-geist-mono);
+        font-size: clamp(10px, 1.2cqw, 13px);
+        color: var(--muted-foreground);
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px dashed var(--border);
+        padding: calc(var(--spacing) * 4);
+        margin: 0 0 calc(var(--spacing) * 4) 0;
+        max-width: 700px;
+        line-height: 1.5;
+    }
+
+    .date-info {
+        font-family: var(--font-geist-mono);
+        font-size: 1.4cqw;
+        color: var(--accent-100);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-top: auto;
+        flex-shrink: 0;
+    }
+
+    /* ============================================
+    ESTILOS GERAIS GRIDS
+    ============================================ */
+    .metric-grid, .methodology-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: calc(var(--spacing) * 4);
+        margin-bottom: calc(var(--spacing) * 6);
+        width: 100%;
+    }
+
+    .metric-card {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        padding: calc(var(--spacing) * 4);
+        display: flex;
+        flex-direction: column;
+        transition: border-color 0.2s;
+    }
+
+    .metric-card.card-dashed {
+        border-style: dashed;
+        background: transparent;
+    }
+
+    .metric-card:hover {
+        border-color: var(--accent-100);
+    }
+
+    .metric-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: calc(var(--spacing) * 2);
+    }
+
+    .metric-label {
+        font-family: var(--font-geist-mono);
+        font-size: 0.9cqw;
+        text-transform: uppercase;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        color: var(--muted-foreground);
+        margin-bottom: 4px;
+    }
+
+    .metric-value {
+        font-size: 2cqw;
+        font-weight: 600;
+        color: var(--foreground);
+    }
+
+    .metric-gap {
+        font-family: var(--font-geist-mono);
+        font-size: 0.8cqw;
+        padding: 2px 6px;
+        border-radius: 2px;
+        background: rgba(0,0,0,0.3);
+        font-weight: 700;
+    }
+
+    .metric-rows {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .metric-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        font-feature-settings: "tnum";
+    }
+
+    .row-digital { color: var(--foreground); font-weight: 600; font-size: 1.4cqw; }
+    .row-imacx { color: var(--muted-foreground); font-size: 1.1cqw; }
+    .unit-label { font-size: 0.7em; opacity: 0.6; margin-right: 4px; font-weight: 400; }
+
+    /* Comparison Box (Slide 3) */
+    .comparison-box {
+        display: flex;
+        align-items: center;
+        gap: calc(var(--spacing) * 4);
+        margin-top: calc(var(--spacing) * 4);
+    }
+    .comparison-arrow { font-family: var(--font-geist-mono); color: var(--accent-100); font-size: 1.5cqw; }
+
+    /* ============================================
+    ESTILOS CHARTS & LAYOUTS
+    ============================================ */
+    .chart-box {
+        position: relative;
+        width: 100%;
+        height: 30cqw;
+        min-height: 200px;
+        border: 1px dashed var(--border);
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 4px;
+        padding: calc(var(--spacing) * 4);
+        margin-top: calc(var(--spacing) * 4);
+        flex-shrink: 0;
+    }
+
+    /* SLIDE 7 & 11 LAYOUT DUPLO (Esquerda/Direita) */
+    .split-layout {
+        display: grid;
+        grid-template-columns: 1.5fr 1fr;
+        gap: calc(var(--spacing) * 12);
+        height: 100%;
+        margin-top: calc(var(--spacing) * 4);
+    }
+
+    .chart-column {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .text-column {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    /* ============================================
+    ESTILOS FUNNELS (SLIDE 6)
+    ============================================ */
+    .funnel-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: calc(var(--spacing) * 16);
+        margin-top: calc(var(--spacing) * 4);
+        height: 25cqw;
+    }
+    .funnel-column {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+    }
+    .funnel-title {
+        font-family: var(--font-geist-mono);
+        font-size: 1.2cqw;
+        text-transform: uppercase;
+        margin-bottom: calc(var(--spacing) * 4);
+        font-weight: 700;
+    }
+    .funnel-visual { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+    .funnel-part {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-family: var(--font-geist-sans);
+        position: relative;
+    }
+    .funnel-top { height: 10cqw; clip-path: polygon(0% 0%, 100% 0%, 85% 100%, 15% 100%); padding-top: 1cqw; }
+    .funnel-bottom { width: 70%; height: 8cqw; clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%); }
+    .funnel-number { font-size: 2.2cqw; font-weight: 700; line-height: 1; }
+    .funnel-desc { font-size: 0.9cqw; font-family: var(--font-geist-mono); opacity: 0.8; text-transform: uppercase; margin-top: 4px; }
+    .funnel-rate-box {
+        position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+        background: #0a0a0a; border: 1px solid var(--border); padding: 8px 16px;
+        border-radius: 20px; z-index: 10; font-family: var(--font-geist-mono);
+        font-weight: 700; font-size: 1.2cqw; box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    }
+    .digital-funnel .funnel-top { background: linear-gradient(180deg, var(--accent-200) 0%, rgba(230, 138, 0, 0.6) 100%); }
+    .digital-funnel .funnel-bottom { background: rgba(230, 138, 0, 0.4); }
+    .digital-funnel .funnel-title { color: var(--accent-200); }
+    .imacx-funnel .funnel-top { background: linear-gradient(180deg, var(--destructive) 0%, rgba(239, 68, 68, 0.6) 100%); }
+    .imacx-funnel .funnel-bottom { background: rgba(239, 68, 68, 0.4); }
+    .imacx-funnel .funnel-title { color: var(--destructive); }
+
+    /* ============================================
+    ESTILOS WATERFALL (SLIDE 8)
+    ============================================ */
+    .waterfall-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: calc(var(--spacing) * 10);
+        margin-top: calc(var(--spacing) * 8);
+    }
+
+    .waterfall-chart-box {
+        background: var(--card);
+        border: 1px dashed var(--border);
+        padding: calc(var(--spacing) * 4);
+        height: 280px;
+        border-radius: var(--radius-sm);
+        position: relative;
+    }
+
+    .waterfall-metrics-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: calc(var(--spacing) * 4);
+        margin-top: calc(var(--spacing) * 6);
+    }
+
+    /* ============================================
+    ESTILOS PIPELINE (SLIDE 9)
+    ============================================ */
+    .pipeline-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: calc(var(--spacing) * 10);
+        margin-top: calc(var(--spacing) * 8);
+    }
+
+    /* ============================================
+    ESTILOS ROOT CAUSES (SLIDE 11)
+    ============================================ */
+    .root-cause-container {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 3cqw;
+        height: 100%;
+    }
+    .rc-header { text-align: center; font-family: var(--font-geist-mono); font-size: 1.1cqw; color: var(--muted-foreground); margin-bottom: 2cqw; text-transform: uppercase; }
+    .tree-structure { display: flex; flex-direction: column; align-items: center; width: 100%; }
+    .tree-level-1 { background: var(--destructive); color: white; padding: 1cqw 2cqw; border-radius: 6px; text-align: center; width: 90%; position: relative; margin-bottom: 3cqw; font-weight: 600; font-size: 1.2cqw; }
+    .tree-level-1::after { content: ''; position: absolute; bottom: -3cqw; left: 50%; width: 2px; height: 3cqw; background: var(--border); }
+    .tree-level-2-container { display: flex; justify-content: space-between; width: 100%; position: relative; padding-top: 1cqw; }
+    .tree-level-2-container::before { content: ''; position: absolute; top: 0; left: 16%; right: 16%; height: 2px; background: var(--border); }
+    .tree-level-2-container::after { content: ''; position: absolute; top: -1cqw; left: 50%; height: 1cqw; width: 2px; background: var(--border); }
+    .tree-box-l2 { background: var(--accent-200); color: white; padding: 0.8cqw; border-radius: 4px; width: 30%; text-align: center; position: relative; font-size: 1cqw; font-weight: 600; }
+    .tree-box-l2::before { content: ''; position: absolute; top: -1cqw; left: 50%; width: 2px; height: 1cqw; background: var(--border); }
+    .tree-level-3-container { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1cqw; width: 100%; margin-top: 3cqw; position: relative; }
+    .tree-box-l3 { background: #333; color: #eee; padding: 0.8cqw; border-radius: 4px; text-align: center; font-size: 0.9cqw; }
+    .tree-box-l3 strong { display: block; color: white; font-size: 1.1em; margin-bottom: 4px; }
+    .diagnosis-box { margin-top: 3cqw; padding-top: 2cqw; border-top: 1px solid var(--border); }
+    .diagnosis-title { color: #3b82f6; font-weight: 700; margin-bottom: 0.5cqw; font-size: 1.2cqw; }
+    .severity-card { margin-bottom: 2cqw; border-radius: 6px; overflow: hidden; display: flex; flex-direction: column; }
+    .severity-header { padding: 1cqw 1.5cqw; display: flex; align-items: center; gap: 1cqw; font-weight: 700; font-size: 1.2cqw; }
+    .severity-body { background: rgba(255,255,255,0.03); padding: 1.5cqw; }
+    .severity-body ul { margin: 0; padding-left: 0; list-style: none; }
+    .severity-body li { display: flex; gap: 0.8cqw; margin-bottom: 0.8cqw; align-items: center; font-size: 0.95cqw; }
+    .card-critical .severity-header { background: rgba(239, 68, 68, 0.2); color: var(--destructive); }
+    .card-critical li i { color: var(--destructive); font-size: 0.6em; }
+    .card-moderate .severity-header { background: rgba(245, 158, 11, 0.2); color: var(--warning); }
+    .card-moderate li i { color: var(--warning); font-size: 0.6em; }
+    .card-advantage .severity-header { background: rgba(16, 185, 129, 0.2); color: var(--success); }
+    .card-advantage li i { color: var(--success); font-size: 0.6em; }
+
+    /* ============================================
+    ESTILOS RECOMENDAÇÕES (SLIDE 12 & 13)
+    ============================================ */
+    .rec-container {
+        display: flex;
+        flex-direction: column;
+        gap: 2cqw;
+        margin-top: 2cqw;
+    }
+    .rec-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        display: grid;
+        grid-template-columns: 6px 60px 1fr 150px;
+        overflow: hidden;
+        min-height: 120px;
+        margin-bottom: 1.5cqw;
+    }
+    .rec-stripe { background: var(--destructive); height: 100%; }
+    .rec-number {
+        display: flex; align-items: flex-start; justify-content: center; padding-top: 1.5cqw;
+    }
+    .number-circle {
+        background: var(--destructive); color: white; width: 28px; height: 28px;
+        border-radius: 50%; display: flex; align-items: center; justify-content: center;
+        font-weight: 700; font-size: 14px;
+    }
+    .rec-content {
+        padding: 1.5cqw 1cqw 1.5cqw 0;
+        display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .rec-title { font-size: 1.3cqw; font-weight: 600; color: var(--foreground); margin-bottom: 0.5cqw; }
+    .rec-desc { font-size: 1cqw; color: var(--muted-foreground); margin-bottom: 1.5cqw; line-height: 1.4; }
+
+    .rec-metrics-row {
+        display: grid; grid-template-columns: repeat(3, 1fr); gap: 1cqw;
+    }
+    .rec-metric-box {
+        background: rgba(255,255,255,0.03); padding: 0.6cqw 1cqw; border-radius: 4px;
+    }
+    .rm-label { font-size: 0.7cqw; color: var(--muted-foreground); text-transform: uppercase; margin-bottom: 2px; }
+    .rm-value { font-size: 1cqw; font-weight: 600; color: var(--accent-100); } /* Default accent */
+
+    .rec-progress {
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        border-left: 1px dashed var(--border); padding: 1cqw;
+    }
+    /* SVG Progress Circle Styles */
+    .progress-circle-bg { fill: none; stroke: #333; stroke-width: 8; }
+    .progress-circle-fg { fill: none; stroke: var(--destructive); stroke-width: 8; stroke-linecap: round; transform: rotate(-90deg); transform-origin: 50% 50%; }
+    .progress-text { font-weight: 700; font-size: 1.2cqw; fill: var(--foreground); }
+    .progress-label { font-size: 0.8cqw; color: var(--muted-foreground); margin-top: 0.5cqw; }
+
+    .urgent-badge {
+        background: var(--destructive); color: white; padding: 4px 12px; border-radius: 4px;
+        font-size: 1cqw; font-weight: 600; display: inline-flex; align-items: center; gap: 6px;
+        vertical-align: middle; margin-left: 1cqw;
+    }
+
+    /* ESTILOS ESPECÍFICOS SLIDE 13 (LAYOUT ALTERNATIVO) */
+    .rec-card-critical {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-left: 6px solid var(--destructive);
+        border-radius: 8px;
+        padding: 1.5cqw;
+        margin-bottom: 1.5cqw;
+        position: relative;
+        display: grid;
+        grid-template-columns: 60px 1fr;
+        gap: 1.5cqw;
+    }
+
+    .rec-icon-circle {
+        width: 50px; height: 50px;
+        background: rgba(239, 68, 68, 0.15);
+        border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        color: var(--destructive);
+        font-size: 1.5cqw;
+    }
+
+    .timeline-container {
+        display: flex;
+        align-items: center;
+        gap: 1cqw;
+        margin-top: 1.5cqw;
+    }
+    .timeline-bar {
+        flex-grow: 1;
+        height: 6px;
+        background: #333;
+        border-radius: 3px;
+        position: relative;
+    }
+    .timeline-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--destructive), var(--accent-100));
+        border-radius: 3px;
+    }
+    .timeline-label {
+        font-size: 0.8cqw;
+        color: var(--muted-foreground);
+        font-family: var(--font-geist-mono);
+    }
+
+    .impact-badge {
+        position: absolute;
+        top: 1.5cqw;
+        right: 1.5cqw;
+        background: #1e3a8a;
+        color: #93c5fd;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 0.8cqw;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+
+    .number-badge-corner {
+        position: absolute;
+        top: -10px; left: -10px;
+        width: 30px; height: 30px;
+        background: var(--destructive);
+        color: white;
+        border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        font-weight: 700;
+        font-size: 0.9cqw;
+        box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+    }
+
+    /* ============================================
+    ESTILOS CENÁRIOS (SLIDE 14)
+    ============================================ */
+    .scenario-legend {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: calc(var(--spacing) * 4);
+        margin-top: 2cqw;
+        width: 100%;
+    }
+    
+    .scenario-legend > .metric-card {
+        min-width: 0;
+        flex: 1 1 0;
+    }
+
+    /* Key Insights Box & Bullets */
+    .insights-box {
+        border-top: 1px solid var(--border);
+        padding-top: calc(var(--spacing) * 4);
+        margin-top: auto;
+        flex-shrink: 0;
+    }
+    .insights-title {
+        font-family: var(--font-geist-sans);
+        font-size: 1.2cqw;
+        font-weight: 600;
+        margin: 0 0 calc(var(--spacing) * 3) 0;
+        color: var(--accent-100);
+    }
+    .insights-list {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: calc(var(--spacing) * 2) calc(var(--spacing) * 8);
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+    /* Single column list for Split Layout */
+    .text-column .insights-list { grid-template-columns: 1fr; gap: calc(var(--spacing) * 4); }
+
+    .insights-list li {
+        font-size: 1cqw;
+        color: var(--foreground);
+        position: relative;
+        padding-left: 16px;
+        line-height: 1.4;
+    }
+    .insights-list li::before { content: "•"; color: var(--border); position: absolute; left: 0; }
+
+    /* Utilitários de Cor */
+    .text-muted { color: var(--muted-foreground); }
+    .text-destructive { color: var(--destructive); }
+    .text-warning { color: var(--warning); }
+    .text-success { color: var(--success); }
+    .bg-destructive { background: rgba(239, 68, 68, 0.15); color: var(--destructive); }
+    .bg-warning { background: rgba(245, 158, 11, 0.15); color: var(--warning); }
+    .bg-success { background: rgba(16, 185, 129, 0.15); color: var(--success); }
+
+    /* Helper Classes for inline HTML */
+    .negative { color: var(--destructive); }
+    .positive { color: var(--success); }
+    .highlight { color: var(--accent-100); }
+    .moderate { color: var(--warning); }
+
+    /* Footer Global */
+    .footer {
+        position: absolute;
+        bottom: calc(var(--spacing) * 6);
+        left: calc(var(--spacing) * 12);
+        right: calc(var(--spacing) * 12);
+        display: flex;
+        justify-content: space-between;
+        border-top: 1px dashed var(--border);
+        padding-top: calc(var(--spacing) * 3);
+        padding-bottom: calc(var(--spacing) * 2);
+        font-family: var(--font-geist-mono);
+        font-size: 1.1cqw;
+        color: var(--muted-foreground);
+        text-transform: uppercase;
+        z-index: 10;
+        opacity: 0.7;
+        background: var(--card);
+    }
+</style>
+</head>
+<body>
+
+    <!-- SLIDE 1: CAPA -->
+    <div class="slide-container" id="slide-1">
+        <div class="header-bar"></div>
+        <div class="geometric-element circle-1"></div>
+        <div class="geometric-element circle-2"></div>
+        <div class="slide-content">
+            <h1 class="title">Análise Comparativa<br/>DIGITAL <span class="vs-highlight">vs</span> IMACX<br/>2025</h1>
+            <p class="subtitle">Relatório Executivo com Dados Corrigidos (YTD 2025)</p>
+            <div class="legend-container">
+                <div class="legend-item"><div class="legend-color square red-color"></div><p class="legend-label">Crítico</p></div>
+                <div class="legend-item"><div class="legend-color square orange-color"></div><p class="legend-label">Moderado</p></div>
+                <div class="legend-item"><div class="legend-color square green-color"></div><p class="legend-label">Vantagem</p></div>
+            </div>
+            <p class="data-note">⚠️ <strong>NOTA DE DADOS:</strong> Dados DIGITAL ajustados para remover orçamentos fantasma gerados pelo sistema PHC em facturas ao HH Group (cliente único = 78.3% da receita).</p>
+            <p class="date-info">Novembro 2025</p>
+        </div>
+        <div class="footer"><div class="company-name">Confidencial • IMACX Internal Use Only</div><div class="page-number">01 / 15</div></div>
+    </div>
+
+    <!-- SLIDE 2: EXECUTIVE SUMMARY -->
+    <div class="slide-container" id="slide-2">
+        <div class="header-bar"></div>
+        <div class="geometric-element circle-1" style="top: -30cqw; right: -20cqw; opacity: 0.05;"></div>
+        <div class="slide-content">
+            <h2 class="title" style="font-size: 3cqw; margin-bottom: 3cqw;">Executive Summary</h2>
+            <div class="metric-grid">
+                <div class="metric-card"><div class="metric-header"><span class="metric-label text-destructive">Revenue</span><span class="metric-gap bg-destructive">+177.4%</span></div><div class="metric-rows"><div class="metric-row row-digital"><span class="unit-label">DIG</span> €937,470</div><div class="metric-row row-imacx"><span class="unit-label">IMX</span> €2,600,263</div></div></div>
+                <div class="metric-card"><div class="metric-header"><span class="metric-label text-destructive">Invoices</span><span class="metric-gap bg-destructive">+382.6%</span></div><div class="metric-rows"><div class="metric-row row-digital"><span class="unit-label">DIG</span> 317</div><div class="metric-row row-imacx"><span class="unit-label">IMX</span> 1,530</div></div></div>
+                <div class="metric-card"><div class="metric-header"><span class="metric-label text-destructive">Active Clients</span><span class="metric-gap bg-destructive">+232.3%</span></div><div class="metric-rows"><div class="metric-row row-digital"><span class="unit-label">DIG</span> 31</div><div class="metric-row row-imacx"><span class="unit-label">IMX</span> 103</div></div></div>
+                <div class="metric-card"><div class="metric-header"><span class="metric-label text-destructive">Quotes</span><span class="metric-gap bg-destructive">+305.7%</span></div><div class="metric-rows"><div class="metric-row row-digital"><span class="unit-label">DIG</span> 699</div><div class="metric-row row-imacx"><span class="unit-label">IMX</span> 2,836</div></div></div>
+                <div class="metric-card"><div class="metric-header"><span class="metric-label text-warning">Conversion Rate</span><span class="metric-gap bg-warning">+18.9%</span></div><div class="metric-rows"><div class="metric-row row-digital"><span class="unit-label">DIG</span> 45.4%</div><div class="metric-row row-imacx"><span class="unit-label">IMX</span> 54.0%</div></div></div>
+                <div class="metric-card" style="border-color: var(--success);"><div class="metric-header"><span class="metric-label text-success">Avg Ticket</span><span class="metric-gap bg-success">Advantage +74%</span></div><div class="metric-rows"><div class="metric-row row-digital"><span class="unit-label">DIG</span> €2,958</div><div class="metric-row row-imacx"><span class="unit-label">IMX</span> €1,700</div></div></div>
+            </div>
+            <div class="insights-box">
+                <h3 class="insights-title">Key Insights</h3>
+                <ul class="insights-list">
+                    <li>IMACX gera <strong>receita +177%</strong> e <strong>volume +383%</strong> vs DIGITAL</li>
+                    <li>Root cause: <strong class="text-destructive">atividade comercial insuficiente</strong> na DIGITAL</li>
+                    <li>DIGITAL tem <strong class="text-success">ticket +74%</strong> mas não compensa o gap</li>
+                    <li>Risco crítico: <strong class="text-destructive">78.3% da receita DIGITAL</strong> depende de um único cliente</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer"><div class="company-name">Confidencial • IMACX Internal Use Only</div><div class="page-number">02 / 15</div></div>
+    </div>
+
+    <!-- SLIDE 3: NOTA METODOLÓGICA -->
+    <div class="slide-container" id="slide-3">
+        <div class="header-bar"></div>
+        <div class="geometric-element circle-2" style="bottom: auto; top: -5cqw; left: auto; right: -5cqw; opacity: 0.15;"></div>
+        <div class="slide-content">
+            <h1 class="title" style="font-size: 2.8cqw; margin-bottom: 1cqw;">Nota Metodológica: Correção de Dados</h1>
+            <h2 style="font-size: 1.8cqw; color: var(--accent-100); margin-bottom: 3cqw;">Fluxo de Ajuste</h2>
+            <div class="methodology-grid">
+                <div class="metric-card card-dashed"><h3>1. Problema Identificado</h3><p>Sistema PHC gera automaticamente um orçamento adicional para cada factura emitida ao cliente HH Group.</p><div style="margin-top: auto;"><div class="metric-label">Cliente Único HH Group</div><div class="metric-value">78.3% da receita</div></div></div>
+                <div class="metric-card card-dashed"><h3>2. Ajuste Aplicado</h3><p>Facturas HH Group estimadas: 248 (78.3% de 317 facturas totais).</p><div style="margin-top: auto;"><div class="metric-label">Orçamentos fantasma removidos</div><div class="metric-value text-destructive">-248</div></div></div>
+                <div class="metric-card card-dashed"><h3>3. Dados Corrigidos</h3><p>Orçamentos reais = 699 (vs 947 originais).</p><div class="comparison-box"><div><div class="metric-label">Conv. Original</div><div class="metric-value" style="font-size: 1.6cqw; color: var(--muted-foreground);">37.1%</div></div><div class="comparison-arrow">→</div><div><div class="metric-label">Conv. Corrigida</div><div class="metric-value text-success" style="font-size: 1.6cqw;">45.4%</div></div></div></div>
+            </div>
+            <div class="insights-box">
+                <h3 class="insights-title">Porquê esta Correção?</h3>
+                <ul class="insights-list">
+                    <li>O sistema PHC gera <strong>orçamentos duplicados</strong> para todas as faturas do HH Group.</li>
+                    <li>Estes orçamentos são <strong>fantasmas</strong> — não representam oportunidades reais.</li>
+                    <li>Incluir estes documentos <strong class="text-destructive">reduz artificialmente a taxa de conversão</strong> da DIGITAL.</li>
+                    <li>Com o ajuste, a conversão DIGITAL revela-se competitiva: <strong class="text-success">45.4%</strong></li>
+                    <li>Mesmo corrigindo, persiste o problema base: <strong>-75.4% volume vs IMACX</strong></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer"><div class="company-name">Confidencial • IMACX Internal Use Only</div><div class="page-number">03 / 15</div></div>
+    </div>
+
+    <!-- SLIDE 4: PERFORMANCE GLOBAL (CHART) -->
+    <div class="slide-container" id="slide-4">
+        <div class="header-bar"></div>
+        <div class="geometric-element circle-1" style="width: 80cqw; height: 80cqw; left: -20cqw; bottom: -20cqw; opacity: 0.05;"></div>
+        <div class="slide-content">
+            <h1 class="title" style="font-size: 2.5cqw; margin-bottom: 0.5cqw;">Performance Global (Normalizado)</h1>
+            <h2 style="font-size: 1.5cqw; color: var(--muted-foreground); font-weight: 400; margin-bottom: 2cqw;">Comparativo DIGITAL como % do IMACX (IMACX = 100)</h2>
+            <div class="chart-box"><canvas id="performanceChart"></canvas></div>
+            <div class="legend-container" style="margin-top: 2cqw; margin-bottom: 2cqw;">
+                <div class="legend-item"><div class="legend-color square" style="background: var(--accent-200);"></div><span class="legend-label" style="color: var(--foreground);">DIGITAL</span></div>
+                <div class="legend-item"><div class="legend-color square" style="background: var(--destructive);"></div><span class="legend-label" style="color: var(--muted-foreground);">IMACX (Baseline)</span></div>
+            </div>
+            <div class="insights-box">
+                <h3 class="insights-title">Insights Principais</h3>
+                <ul class="insights-list">
+                    <li>Única vantagem clara: <strong class="text-success">ticket médio +73.9%</strong> (€2,958 vs €1,700).</li>
+                    <li>Conversão DIGITAL é competitiva (45.4%), mesmo que <strong class="text-warning">moderadamente inferior</strong> (-15.9%).</li>
+                    <li>Indicadores de volume mostram déficit severo: receita (-64%), faturas (-79.3%), clientes (-69.9%).</li>
+                    <li>Gap massivo de atividade comercial: <strong>-75.4% orçamentos</strong>.</li>
+                    <li>Conclusão: a estratégia premium não compensa o volume insuficiente → receita total <strong>2.8x menor</strong>.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer"><div class="company-name">Confidencial • IMACX Internal Use Only</div><div class="page-number">04 / 15</div></div>
+    </div>
+
+    <!-- SLIDE 5: REVENUE AND TRANSACTION VOLUME -->
+    <div class="slide-container" id="slide-5">
+        <div class="header-bar"></div>
+        <div class="geometric-element circle-2" style="top: -5cqw; right: -5cqw; left: auto; bottom: auto; opacity: 0.1;"></div>
+        <div class="slide-content">
+            <h1 class="title" style="font-size: 2.5cqw; margin-bottom: 0.5cqw;">Revenue and Transaction Volume</h1>
+            <h2 style="font-size: 1.5cqw; color: var(--muted-foreground); font-weight: 400; margin-bottom: 2cqw;">Comparação DIRECTA por Indicador</h2>
+            <div class="chart-box"><canvas id="volumeChart"></canvas></div>
+            <div class="legend-container" style="margin-top: 2cqw; margin-bottom: 2cqw;">
+                <div class="legend-item"><div class="legend-color square" style="background: var(--accent-200);"></div><span class="legend-label" style="color: var(--foreground);">DIGITAL</span></div>
+                <div class="legend-item"><div class="legend-color square" style="background: var(--destructive);"></div><span class="legend-label" style="color: var(--muted-foreground);">IMACX</span></div>
+            </div>
+            <div class="insights-box">
+                <h3 class="insights-title">Análise de Volume Transacional</h3>
+                <ul class="insights-list">
+                    <li>IMACX opera <strong class="text-destructive">4.8x mais transações</strong> (1,530 vs 317).</li>
+                    <li>Receita IMACX é <strong class="text-destructive">2.8x maior</strong> (€2.6M vs €937K).</li>
+                    <li>Base de clientes <strong class="text-destructive">3.3x maior</strong> (103 vs 31).</li>
+                    <li>Ticket DIGITAL mantém vantagem (<strong class="text-success">€2,958 vs €1,700</strong>), mas volume domina.</li>
+                    <li><strong>Conclusão:</strong> estratégia de volume supera a estratégia premium no contexto atual.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer"><div class="company-name">Confidencial • IMACX Internal Use Only</div><div class="page-number">05 / 15</div></div>
+    </div>
+
+    <!-- SLIDE 6: CONVERSION FUNNEL -->
+    <div class="slide-container" id="slide-6">
+        <div class="header-bar"></div>
+        <div class="geometric-element circle-1" style="top: -25cqw; right: -15cqw; opacity: 0.08;"></div>
+        <div class="slide-content">
+            <h1 class="title" style="font-size: 2.5cqw; margin-bottom: 1cqw;">Conversion Funnel Analysis</h1>
+            <h2 style="font-size: 1.5cqw; color: var(--muted-foreground); font-weight: 400; margin-bottom: 2cqw;">Quotes → Invoices Conversion Rate</h2>
+            <div class="funnel-grid">
+                <div class="funnel-column digital-funnel">
+                    <div class="funnel-title">DIGITAL</div>
+                    <div class="funnel-visual">
+                        <div class="funnel-part funnel-top">
+                            <div class="funnel-number">699</div>
+                            <div class="funnel-desc">Orçamentos</div>
+                        </div>
+                        <div class="funnel-rate-box">45.4%</div>
+                        <div class="funnel-part funnel-bottom">
+                            <div class="funnel-number">317</div>
+                            <div class="funnel-desc">Faturas</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="funnel-column imacx-funnel">
+                    <div class="funnel-title">IMACX</div>
+                    <div class="funnel-visual">
+                        <div class="funnel-part funnel-top">
+                            <div class="funnel-number">2,836</div>
+                            <div class="funnel-desc">Orçamentos</div>
+                        </div>
+                        <div class="funnel-rate-box">54.0%</div>
+                        <div class="funnel-part funnel-bottom">
+                            <div class="funnel-number">1,530</div>
+                            <div class="funnel-desc">Faturas</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="insights-box">
+                <h3 class="insights-title">Análise do Funnel</h3>
+                <ul class="insights-list">
+                    <li>IMACX processa <strong class="text-destructive">4.1x mais orçamentos</strong> (2,836 vs 699).</li>
+                    <li>Taxa de conversão IMACX é <strong class="text-warning">+18.9% superior</strong> (54.0% vs 45.4%).</li>
+                    <li>Gap de volume é crítico: DIGITAL precisa aumentar atividade comercial em <strong class="text-destructive">+305%</strong>.</li>
+                    <li>Mesmo com melhor ticket, DIGITAL não compensa o déficit de volume.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer"><div class="company-name">Confidencial • IMACX Internal Use Only</div><div class="page-number">06 / 15</div></div>
+    </div>
+
+    <!-- SLIDE 7: CLIENT ACQUISITION & RETENTION -->
+    <div class="slide-container" id="slide-7">
+        <div class="header-bar"></div>
+        <div class="geometric-element circle-2" style="bottom: -10cqw; left: -5cqw; opacity: 0.1;"></div>
+        <div class="slide-content">
+            <h1 class="title" style="font-size: 2.5cqw; margin-bottom: 1cqw;">Client Acquisition & Retention</h1>
+            <div class="split-layout">
+                <div class="chart-column">
+                    <div class="chart-box"><canvas id="clientChart"></canvas></div>
+                </div>
+                <div class="text-column">
+                    <h3>Análise de Base de Clientes</h3>
+                    <div class="metric-grid" style="grid-template-columns: 1fr; margin-top: 2cqw;">
+                        <div class="metric-card">
+                            <div class="metric-header">
+                                <span class="metric-label text-destructive">Clientes Ativos</span>
+                                <span class="metric-gap bg-destructive">+232.3%</span>
+                            </div>
+                            <div class="metric-rows">
+                                <div class="metric-row row-digital"><span class="unit-label">DIG</span> 31</div>
+                                <div class="metric-row row-imacx"><span class="unit-label">IMX</span> 103</div>
+                            </div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-header">
+                                <span class="metric-label text-warning">Receita por Cliente</span>
+                                <span class="metric-gap bg-warning">-64.0%</span>
+                            </div>
+                            <div class="metric-rows">
+                                <div class="metric-row row-digital"><span class="unit-label">DIG</span> €30,241</div>
+                                <div class="metric-row row-imacx"><span class="unit-label">IMX</span> €25,245</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="insights-box">
+                        <h3 class="insights-title">Key Insights</h3>
+                        <ul class="insights-list">
+                            <li>IMACX tem <strong>3.3x mais clientes</strong> ativos.</li>
+                            <li>DIGITAL tem receita por cliente <strong>+19.8% superior</strong>.</li>
+                            <li>Estratégia premium não compensa gap de base.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer"><div class="company-name">Confidencial • IMACX Internal Use Only</div><div class="page-number">07 / 15</div></div>
+    </div>
+
+    <!-- SLIDE 8: REVENUE WATERFALL -->
+    <div class="slide-container" id="slide-8">
+        <div class="header-bar"></div>
+        <div class="geometric-element circle-1" style="width: 70cqw; height: 70cqw; top: -15cqw; left: -10cqw; opacity: 0.05;"></div>
+        <div class="slide-content">
+            <h1 class="title" style="font-size: 2.5cqw; margin-bottom: 1cqw;">Revenue Waterfall Analysis</h1>
+            <h2 style="font-size: 1.5cqw; color: var(--muted-foreground); font-weight: 400; margin-bottom: 2cqw;">Breakdown por Componente</h2>
+            <div class="waterfall-grid">
+                <div class="waterfall-chart-box"><canvas id="waterfallDigital"></canvas></div>
+                <div class="waterfall-chart-box"><canvas id="waterfallImacx"></canvas></div>
+            </div>
+            <div class="waterfall-metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-label">Ticket Médio DIGITAL</div>
+                    <div class="metric-value" style="color: var(--accent-100);">€2,958</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Ticket Médio IMACX</div>
+                    <div class="metric-value" style="color: var(--destructive);">€1,700</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Gap de Volume</div>
+                    <div class="metric-value text-destructive">-75.4%</div>
+                </div>
+            </div>
+        </div>
+        <div class="footer"><div class="company-name">Confidencial • IMACX Internal Use Only</div><div class="page-number">08 / 15</div></div>
+    </div>
+
+    <!-- SLIDE 9: SALES PIPELINE -->
+    <div class="slide-container" id="slide-9">
+        <div class="header-bar"></div>
+        <div class="geometric-element circle-2" style="top: -8cqw; right: -8cqw; opacity: 0.12;"></div>
+        <div class="slide-content">
+            <h1 class="title" style="font-size: 2.5cqw; margin-bottom: 1cqw;">Sales Pipeline Comparison</h1>
+            <h2 style="font-size: 1.5cqw; color: var(--muted-foreground); font-weight: 400; margin-bottom: 2cqw;">Atividade Comercial: Orçamentos vs Faturas</h2>
+            <div class="pipeline-grid">
+                <div class="metric-card">
+                    <h3 style="color: var(--accent-200);">DIGITAL Pipeline</h3>
+                    <div style="margin-top: 2cqw;">
+                        <div class="metric-row" style="justify-content: space-between; margin-bottom: 1cqw;">
+                            <span class="metric-label">Orçamentos</span>
+                            <span class="metric-value" style="font-size: 1.8cqw;">699</span>
+                        </div>
+                        <div class="metric-row" style="justify-content: space-between; margin-bottom: 1cqw;">
+                            <span class="metric-label">Taxa Conversão</span>
+                            <span class="metric-value text-success" style="font-size: 1.8cqw;">45.4%</span>
+                        </div>
+                        <div class="metric-row" style="justify-content: space-between;">
+                            <span class="metric-label">Faturas</span>
+                            <span class="metric-value" style="font-size: 1.8cqw;">317</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <h3 style="color: var(--destructive);">IMACX Pipeline</h3>
+                    <div style="margin-top: 2cqw;">
+                        <div class="metric-row" style="justify-content: space-between; margin-bottom: 1cqw;">
+                            <span class="metric-label">Orçamentos</span>
+                            <span class="metric-value" style="font-size: 1.8cqw;">2,836</span>
+                        </div>
+                        <div class="metric-row" style="justify-content: space-between; margin-bottom: 1cqw;">
+                            <span class="metric-label">Taxa Conversão</span>
+                            <span class="metric-value text-success" style="font-size: 1.8cqw;">54.0%</span>
+                        </div>
+                        <div class="metric-row" style="justify-content: space-between;">
+                            <span class="metric-label">Faturas</span>
+                            <span class="metric-value" style="font-size: 1.8cqw;">1,530</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="metric-card card-dashed">
+                    <h3>Gap Analysis</h3>
+                    <div style="margin-top: 2cqw;">
+                        <div class="metric-row" style="justify-content: space-between; margin-bottom: 1cqw;">
+                            <span class="metric-label text-destructive">Orçamentos</span>
+                            <span class="metric-value text-destructive" style="font-size: 1.8cqw;">-75.4%</span>
+                        </div>
+                        <div class="metric-row" style="justify-content: space-between; margin-bottom: 1cqw;">
+                            <span class="metric-label text-warning">Conversão</span>
+                            <span class="metric-value text-warning" style="font-size: 1.8cqw;">-15.9%</span>
+                        </div>
+                        <div class="metric-row" style="justify-content: space-between;">
+                            <span class="metric-label text-destructive">Faturas</span>
+                            <span class="metric-value text-destructive" style="font-size: 1.8cqw;">-79.3%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="insights-box">
+                <h3 class="insights-title">Conclusão Pipeline</h3>
+                <ul class="insights-list">
+                    <li>DIGITAL precisa aumentar atividade comercial em <strong class="text-destructive">+305%</strong> para igualar IMACX.</li>
+                    <li>Taxa de conversão DIGITAL é competitiva mas não compensa o gap de volume.</li>
+                    <li>Estratégia deve focar em <strong>aumento de orçamentos</strong>, não apenas otimização de conversão.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer"><div class="company-name">Confidencial • IMACX Internal Use Only</div><div class="page-number">09 / 15</div></div>
+    </div>
+
+    <!-- SLIDE 10: MONTHLY TRENDS -->
+    <div class="slide-container" id="slide-10">
+        <div class="header-bar"></div>
+        <div class="geometric-element circle-1" style="width: 60cqw; height: 60cqw; bottom: -15cqw; right: -10cqw; opacity: 0.08;"></div>
+        <div class="slide-content">
+            <h1 class="title" style="font-size: 2.5cqw; margin-bottom: 1cqw;">Monthly Performance Trends</h1>
+            <h2 style="font-size: 1.5cqw; color: var(--muted-foreground); font-weight: 400; margin-bottom: 2cqw;">Evolução YTD 2025</h2>
+            <div class="chart-box"><canvas id="trendsChart"></canvas></div>
+            <div class="legend-container" style="margin-top: 2cqw; margin-bottom: 2cqw;">
+                <div class="legend-item"><div class="legend-color square" style="background: var(--accent-200);"></div><span class="legend-label" style="color: var(--foreground);">DIGITAL</span></div>
+                <div class="legend-item"><div class="legend-color square" style="background: var(--destructive);"></div><span class="legend-label" style="color: var(--muted-foreground);">IMACX</span></div>
+            </div>
+            <div class="insights-box">
+                <h3 class="insights-title">Tendências Observadas</h3>
+                <ul class="insights-list">
+                    <li>Gap de performance mantém-se consistente ao longo do período.</li>
+                    <li>IMACX demonstra crescimento sustentado em volume.</li>
+                    <li>DIGITAL mantém estratégia premium mas com volume limitado.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer"><div class="company-name">Confidencial • IMACX Internal Use Only</div><div class="page-number">10 / 15</div></div>
+    </div>
+
+    <!-- SLIDE 11: ROOT CAUSE ANALYSIS -->
+    <div class="slide-container" id="slide-11">
+        <div class="header-bar"></div>
+        <div class="geometric-element circle-2" style="top: -5cqw; left: -5cqw; opacity: 0.1;"></div>
+        <div class="slide-content">
+            <h1 class="title" style="font-size: 2.5cqw; margin-bottom: 1cqw;">Root Cause Analysis</h1>
+            <div class="split-layout">
+                <div class="chart-column">
+                    <div class="root-cause-container">
+                        <div class="rc-header">Árvore de Causas</div>
+                        <div class="tree-structure">
+                            <div class="tree-level-1">Volume Comercial Insuficiente</div>
+                            <div class="tree-level-2-container">
+                                <div class="tree-box-l2">Atividade Comercial</div>
+                                <div class="tree-box-l2">Base de Clientes</div>
+                                <div class="tree-box-l2">Estratégia Premium</div>
+                            </div>
+                            <div class="tree-level-3-container">
+                                <div class="tree-box-l3"><strong>-75.4%</strong> Orçamentos</div>
+                                <div class="tree-box-l3"><strong>-69.9%</strong> Clientes</div>
+                                <div class="tree-box-l3"><strong>78.3%</strong> Cliente Único</div>
+                                <div class="tree-box-l3"><strong>+73.9%</strong> Ticket Médio</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-column">
+                    <h3>Diagnóstico por Severidade</h3>
+                    <div class="diagnosis-box">
+                        <div class="diagnosis-title">Causas Críticas</div>
+                        <div class="severity-card card-critical">
+                            <div class="severity-header"><i class="fas fa-exclamation-circle"></i> Volume Comercial</div>
+                            <div class="severity-body">
+                                <ul>
+                                    <li><i class="fas fa-circle"></i> -75.4% orçamentos vs IMACX</li>
+                                    <li><i class="fas fa-circle"></i> -79.3% faturas vs IMACX</li>
+                                    <li><i class="fas fa-circle"></i> Dependência de cliente único (78.3%)</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="severity-card card-moderate">
+                            <div class="severity-header"><i class="fas fa-exclamation-triangle"></i> Base de Clientes</div>
+                            <div class="severity-body">
+                                <ul>
+                                    <li><i class="fas fa-circle"></i> -69.9% clientes ativos</li>
+                                    <li><i class="fas fa-circle"></i> Concentração de receita</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="severity-card card-advantage">
+                            <div class="severity-header"><i class="fas fa-check-circle"></i> Vantagem Competitiva</div>
+                            <div class="severity-body">
+                                <ul>
+                                    <li><i class="fas fa-circle"></i> Ticket médio +73.9% superior</li>
+                                    <li><i class="fas fa-circle"></i> Taxa conversão competitiva (45.4%)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer"><div class="company-name">Confidencial • IMACX Internal Use Only</div><div class="page-number">11 / 15</div></div>
+    </div>
+
+    <!-- SLIDE 12: RECOMMENDATIONS -->
+    <div class="slide-container" id="slide-12">
+        <div class="header-bar"></div>
+        <div class="geometric-element circle-1" style="top: -20cqw; right: -15cqw; opacity: 0.06;"></div>
+        <div class="slide-content">
+            <h1 class="title" style="font-size: 2.5cqw; margin-bottom: 1cqw;">Strategic Recommendations</h1>
+            <div class="rec-container">
+                <div class="rec-card">
+                    <div class="rec-stripe"></div>
+                    <div class="rec-number"><div class="number-circle">1</div></div>
+                    <div class="rec-content">
+                        <div class="rec-title">Aumentar Atividade Comercial <span class="urgent-badge">URGENTE</span></div>
+                        <div class="rec-desc">Expandir pipeline de orçamentos em +305% para igualar volume IMACX. Focar em prospecção ativa e diversificação de clientes.</div>
+                        <div class="rec-metrics-row">
+                            <div class="rec-metric-box">
+                                <div class="rm-label">Meta Orçamentos</div>
+                                <div class="rm-value">2,836</div>
+                            </div>
+                            <div class="rec-metric-box">
+                                <div class="rm-label">Impacto Receita</div>
+                                <div class="rm-value">+177%</div>
+                            </div>
+                            <div class="rec-metric-box">
+                                <div class="rm-label">Prazo</div>
+                                <div class="rm-value">6 meses</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rec-progress">
+                        <svg width="80" height="80">
+                            <circle class="progress-circle-bg" cx="40" cy="40" r="32"></circle>
+                            <circle class="progress-circle-fg" cx="40" cy="40" r="32" stroke-dasharray="201" stroke-dashoffset="120"></circle>
+                            <text class="progress-text" x="40" y="45" text-anchor="middle">40%</text>
+                        </svg>
+                        <div class="progress-label">Progresso</div>
+                    </div>
+                </div>
+                <div class="rec-card">
+                    <div class="rec-stripe"></div>
+                    <div class="rec-number"><div class="number-circle">2</div></div>
+                    <div class="rec-content">
+                        <div class="rec-title">Diversificar Base de Clientes</div>
+                        <div class="rec-desc">Reduzir dependência do cliente HH Group (78.3% receita). Expandir para 100+ clientes ativos através de estratégia de aquisição.</div>
+                        <div class="rec-metrics-row">
+                            <div class="rec-metric-box">
+                                <div class="rm-label">Meta Clientes</div>
+                                <div class="rm-value">100+</div>
+                            </div>
+                            <div class="rec-metric-box">
+                                <div class="rm-label">Redução Risco</div>
+                                <div class="rm-value">-50%</div>
+                            </div>
+                            <div class="rec-metric-box">
+                                <div class="rm-label">Prazo</div>
+                                <div class="rm-value">12 meses</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rec-progress">
+                        <svg width="80" height="80">
+                            <circle class="progress-circle-bg" cx="40" cy="40" r="32"></circle>
+                            <circle class="progress-circle-fg" cx="40" cy="40" r="32" stroke-dasharray="201" stroke-dashoffset="150"></circle>
+                            <text class="progress-text" x="40" y="45" text-anchor="middle">25%</text>
+                        </svg>
+                        <div class="progress-label">Progresso</div>
+                    </div>
+                </div>
+                <div class="rec-card">
+                    <div class="rec-stripe"></div>
+                    <div class="rec-number"><div class="number-circle">3</div></div>
+                    <div class="rec-content">
+                        <div class="rec-title">Otimizar Taxa de Conversão</div>
+                        <div class="rec-desc">Melhorar processo comercial para aumentar conversão de 45.4% para 54%+ (nível IMACX), mantendo estratégia premium.</div>
+                        <div class="rec-metrics-row">
+                            <div class="rec-metric-box">
+                                <div class="rm-label">Meta Conversão</div>
+                                <div class="rm-value">54%+</div>
+                            </div>
+                            <div class="rec-metric-box">
+                                <div class="rm-label">Impacto Faturas</div>
+                                <div class="rm-value">+19%</div>
+                            </div>
+                            <div class="rec-metric-box">
+                                <div class="rm-label">Prazo</div>
+                                <div class="rm-value">3 meses</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rec-progress">
+                        <svg width="80" height="80">
+                            <circle class="progress-circle-bg" cx="40" cy="40" r="32"></circle>
+                            <circle class="progress-circle-fg" cx="40" cy="40" r="32" stroke-dasharray="201" stroke-dashoffset="100"></circle>
+                            <text class="progress-text" x="40" y="45" text-anchor="middle">50%</text>
+                        </svg>
+                        <div class="progress-label">Progresso</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer"><div class="company-name">Confidencial • IMACX Internal Use Only</div><div class="page-number">12 / 15</div></div>
+    </div>
+
+    <!-- SLIDE 13: CRITICAL ACTIONS -->
+    <div class="slide-container" id="slide-13">
+        <div class="header-bar"></div>
+        <div class="geometric-element circle-2" style="bottom: -8cqw; right: -8cqw; opacity: 0.1;"></div>
+        <div class="slide-content">
+            <h1 class="title" style="font-size: 2.5cqw; margin-bottom: 1cqw;">Critical Action Items</h1>
+            <div class="rec-container">
+                <div class="rec-card-critical">
+                    <div class="number-badge-corner">1</div>
+                    <div class="rec-icon-circle"><i class="fas fa-bullhorn"></i></div>
+                    <div>
+                        <div class="rec-title">Campanha de Prospecção Imediata <span class="urgent-badge">CRÍTICO</span></div>
+                        <div class="rec-desc">Lançar campanha agressiva de prospecção para aumentar pipeline em 300% nos próximos 90 dias. Focar em novos segmentos e geografias.</div>
+                        <div class="timeline-container">
+                            <div class="timeline-label">0</div>
+                            <div class="timeline-bar">
+                                <div class="timeline-fill" style="width: 30%;"></div>
+                            </div>
+                            <div class="timeline-label">90 dias</div>
+                        </div>
+                        <div class="impact-badge">ALTO IMPACTO</div>
+                    </div>
+                </div>
+                <div class="rec-card-critical">
+                    <div class="number-badge-corner">2</div>
+                    <div class="rec-icon-circle"><i class="fas fa-users"></i></div>
+                    <div>
+                        <div class="rec-title">Expansão de Equipa Comercial</div>
+                        <div class="rec-desc">Contratar 2-3 comerciais adicionais para aumentar capacidade de prospecção e follow-up. Investimento necessário para escalar volume.</div>
+                        <div class="timeline-container">
+                            <div class="timeline-label">0</div>
+                            <div class="timeline-bar">
+                                <div class="timeline-fill" style="width: 15%;"></div>
+                            </div>
+                            <div class="timeline-label">6 meses</div>
+                        </div>
+                        <div class="impact-badge">MÉDIO IMPACTO</div>
+                    </div>
+                </div>
+                <div class="rec-card-critical">
+                    <div class="number-badge-corner">3</div>
+                    <div class="rec-icon-circle"><i class="fas fa-chart-line"></i></div>
+                    <div>
+                        <div class="rec-title">Sistema de Tracking e Analytics</div>
+                        <div class="rec-desc">Implementar dashboard de KPIs em tempo real para monitorizar pipeline, conversão e performance comercial. Data-driven decisions.</div>
+                        <div class="timeline-container">
+                            <div class="timeline-label">0</div>
+                            <div class="timeline-bar">
+                                <div class="timeline-fill" style="width: 60%;"></div>
+                            </div>
+                            <div class="timeline-label">30 dias</div>
+                        </div>
+                        <div class="impact-badge">ALTO IMPACTO</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer"><div class="company-name">Confidencial • IMACX Internal Use Only</div><div class="page-number">13 / 15</div></div>
+    </div>
+
+    <!-- SLIDE 14: SCENARIOS & PROJECTIONS -->
+    <div class="slide-container" id="slide-14">
+        <div class="header-bar"></div>
+        <div class="geometric-element circle-1" style="width: 80cqw; height: 80cqw; top: -20cqw; left: -20cqw; opacity: 0.04;"></div>
+        <div class="slide-content">
+            <h1 class="title" style="font-size: 2.5cqw; margin-bottom: 1cqw;">Scenarios & Projections</h1>
+            <h2 style="font-size: 1.5cqw; color: var(--muted-foreground); font-weight: 400; margin-bottom: 2cqw;">Projeções 12 Meses (Cenários)</h2>
+            <div class="scenario-legend">
+                <div class="metric-card">
+                    <h3 style="color: var(--destructive);">Cenário Pessimista</h3>
+                    <div style="margin-top: 1.5cqw;">
+                        <div class="metric-row" style="justify-content: space-between; margin-bottom: 1cqw;">
+                            <span class="metric-label">Receita</span>
+                            <span class="metric-value text-destructive">€1.2M</span>
+                        </div>
+                        <div class="metric-row" style="justify-content: space-between; margin-bottom: 1cqw;">
+                            <span class="metric-label">Faturas</span>
+                            <span class="metric-value">450</span>
+                        </div>
+                        <div class="metric-row" style="justify-content: space-between;">
+                            <span class="metric-label">Clientes</span>
+                            <span class="metric-value">40</span>
+                        </div>
+                    </div>
+                    <p style="font-size: 0.9cqw; margin-top: 1cqw; color: var(--muted-foreground);">Manutenção do status quo. Gap mantém-se.</p>
+                </div>
+                <div class="metric-card" style="border-color: var(--warning);">
+                    <h3 style="color: var(--warning);">Cenário Realista</h3>
+                    <div style="margin-top: 1.5cqw;">
+                        <div class="metric-row" style="justify-content: space-between; margin-bottom: 1cqw;">
+                            <span class="metric-label">Receita</span>
+                            <span class="metric-value text-warning">€1.8M</span>
+                        </div>
+                        <div class="metric-row" style="justify-content: space-between; margin-bottom: 1cqw;">
+                            <span class="metric-label">Faturas</span>
+                            <span class="metric-value">700</span>
+                        </div>
+                        <div class="metric-row" style="justify-content: space-between;">
+                            <span class="metric-label">Clientes</span>
+                            <span class="metric-value">65</span>
+                        </div>
+                    </div>
+                    <p style="font-size: 0.9cqw; margin-top: 1cqw; color: var(--muted-foreground);">Implementação parcial das recomendações.</p>
+                </div>
+                <div class="metric-card" style="border-color: var(--success);">
+                    <h3 style="color: var(--success);">Cenário Otimista</h3>
+                    <div style="margin-top: 1.5cqw;">
+                        <div class="metric-row" style="justify-content: space-between; margin-bottom: 1cqw;">
+                            <span class="metric-label">Receita</span>
+                            <span class="metric-value text-success">€2.5M</span>
+                        </div>
+                        <div class="metric-row" style="justify-content: space-between; margin-bottom: 1cqw;">
+                            <span class="metric-label">Faturas</span>
+                            <span class="metric-value">1,200</span>
+                        </div>
+                        <div class="metric-row" style="justify-content: space-between;">
+                            <span class="metric-label">Clientes</span>
+                            <span class="metric-value">100+</span>
+                        </div>
+                    </div>
+                    <p style="font-size: 0.9cqw; margin-top: 1cqw; color: var(--muted-foreground);">Implementação completa + crescimento acelerado.</p>
+                </div>
+            </div>
+            <div class="insights-box">
+                <h3 class="insights-title">Pre-requisitos para Cenário Otimista</h3>
+                <ul class="insights-list">
+                    <li>Implementação completa das 3 recomendações críticas.</li>
+                    <li>Aumento de atividade comercial em +300%.</li>
+                    <li>Diversificação de base de clientes para 100+.</li>
+                    <li>Manutenção de ticket médio premium.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer"><div class="company-name">Confidencial • IMACX Internal Use Only</div><div class="page-number">14 / 15</div></div>
+    </div>
+
+    <!-- SLIDE 15: CLOSING -->
+    <div class="slide-container" id="slide-15">
+        <div class="header-bar"></div>
+        <div class="geometric-element circle-1"></div>
+        <div class="geometric-element circle-2"></div>
+        <div class="slide-content" style="text-align: center;">
+            <h1 class="title" style="font-size: 4cqw; margin-bottom: 2cqw;">Conclusões Finais</h1>
+            <div style="max-width: 80%; margin: 0 auto;">
+                <h2 style="font-size: 2cqw; color: var(--accent-100); margin-bottom: 3cqw;">Ação Imediata Requerida</h2>
+                <div class="metric-grid" style="grid-template-columns: 1fr; gap: 2cqw; margin-bottom: 3cqw;">
+                    <div class="metric-card" style="border-color: var(--destructive);">
+                        <div class="metric-label text-destructive" style="font-size: 1.2cqw; margin-bottom: 1cqw;">PRIORIDADE #1</div>
+                        <div class="metric-value" style="font-size: 2.5cqw; color: var(--foreground);">Aumentar Atividade Comercial</div>
+                        <p style="font-size: 1.2cqw; margin-top: 1cqw; color: var(--muted-foreground);">Meta: +305% orçamentos para igualar volume IMACX</p>
+                    </div>
+                </div>
+                <div class="insights-box" style="border-top: none; margin-top: 3cqw;">
+                    <ul class="insights-list" style="grid-template-columns: 1fr; text-align: left;">
+                        <li>Estratégia premium DIGITAL é válida mas <strong class="text-destructive">volume insuficiente</strong>.</li>
+                        <li>Gap crítico: <strong>-75.4% atividade comercial</strong> vs IMACX.</li>
+                        <li>Solução: <strong class="text-success">escalar volume mantendo ticket premium</strong>.</li>
+                        <li>Prazo recomendado: <strong>6-12 meses</strong> para fechar gap significativo.</li>
+                    </ul>
+                </div>
+            </div>
+            <p class="date-info" style="margin-top: 4cqw;">Novembro 2025 • IMACX Internal Use Only</p>
+        </div>
+        <div class="footer"><div class="company-name">Confidencial • IMACX Internal Use Only</div><div class="page-number">15 / 15</div></div>
+    </div>
+
+<script>
+// Chart.js default configuration
+Chart.defaults.color = '#fafafa';
+Chart.defaults.borderColor = '#3f3f3f';
+Chart.defaults.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+
+// Wait for DOM to be ready
+document.addEventListener('DOMContentLoaded', function() {
+    // Performance Chart (Slide 4) - Normalized comparison
+    const performanceCtx = document.getElementById('performanceChart');
+    if (performanceCtx) {
+        new Chart(performanceCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Receita', 'Faturas', 'Clientes', 'Orçamentos', 'Taxa Conversão', 'Ticket Médio'],
+                datasets: [{
+                    label: 'DIGITAL (% do IMACX)',
+                    data: [36.0, 20.7, 30.1, 24.6, 84.1, 173.9],
+                    backgroundColor: '#e68a00',
+                    borderColor: '#ff9900',
+                    borderWidth: 1
+                }, {
+                    label: 'IMACX (Baseline = 100)',
+                    data: [100, 100, 100, 100, 100, 100],
+                    backgroundColor: 'rgba(239, 68, 68, 0.3)',
+                    borderColor: '#ef4444',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top',
+                        labels: {
+                            color: '#fafafa',
+                            font: {
+                                family: 'Geist Mono',
+                                size: 12
+                            }
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(20, 20, 20, 0.9)',
+                        titleColor: '#fafafa',
+                        bodyColor: '#fafafa',
+                        borderColor: '#3f3f3f',
+                        borderWidth: 1
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: '#a3a3a3',
+                            font: {
+                                family: 'Geist Mono',
+                                size: 11
+                            },
+                            callback: function(value) {
+                                return value + '%';
+                            }
+                        },
+                        grid: {
+                            color: 'rgba(63, 63, 63, 0.3)'
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: '#a3a3a3',
+                            font: {
+                                family: 'Geist Mono',
+                                size: 11
+                            }
+                        },
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    // Volume Chart (Slide 5) - Direct comparison
+    const volumeCtx = document.getElementById('volumeChart');
+    if (volumeCtx) {
+        // Store original values for tooltips
+        const originalData = {
+            digital: [937470, 317, 31, 699],
+            imacx: [2600263, 1530, 103, 2836]
+        };
+        
+        // Normalize revenue to thousands for better visualization
+        const chartData = {
+            digital: [937.47, 317, 31, 699],
+            imacx: [2600.26, 1530, 103, 2836]
+        };
+        
+        new Chart(volumeCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Receita (€ mil)', 'Faturas', 'Clientes Ativos', 'Orçamentos'],
+                datasets: [{
+                    label: 'DIGITAL',
+                    data: chartData.digital,
+                    backgroundColor: '#e68a00',
+                    borderColor: '#ff9900',
+                    borderWidth: 1
+                }, {
+                    label: 'IMACX',
+                    data: chartData.imacx,
+                    backgroundColor: 'rgba(239, 68, 68, 0.5)',
+                    borderColor: '#ef4444',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top',
+                        labels: {
+                            color: '#fafafa',
+                            font: {
+                                family: 'Geist Mono',
+                                size: 12
+                            }
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(20, 20, 20, 0.9)',
+                        titleColor: '#fafafa',
+                        bodyColor: '#fafafa',
+                        borderColor: '#3f3f3f',
+                        borderWidth: 1,
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed.y !== null) {
+                                    const datasetIndex = context.datasetIndex;
+                                    const dataIndex = context.dataIndex;
+                                    
+                                    if (dataIndex === 0) {
+                                        // Revenue - show original value formatted as currency
+                                        const originalValue = datasetIndex === 0 
+                                            ? originalData.digital[0] 
+                                            : originalData.imacx[0];
+                                        label += '€' + originalValue.toLocaleString('pt-PT');
+                                    } else {
+                                        // Other metrics - show original value
+                                        const originalValue = datasetIndex === 0 
+                                            ? originalData.digital[dataIndex] 
+                                            : originalData.imacx[dataIndex];
+                                        label += originalValue.toLocaleString('pt-PT');
+                                    }
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: '#a3a3a3',
+                            font: {
+                                family: 'Geist Mono',
+                                size: 11
+                            },
+                            callback: function(value) {
+                                // Format based on the metric
+                                if (value >= 1000) {
+                                    return value.toLocaleString('pt-PT');
+                                }
+                                return value;
+                            }
+                        },
+                        grid: {
+                            color: 'rgba(63, 63, 63, 0.3)'
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: '#a3a3a3',
+                            font: {
+                                family: 'Geist Mono',
+                                size: 11
+                            }
+                        },
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    // Client Chart (Slide 7) - Client acquisition comparison
+    const clientCtx = document.getElementById('clientChart');
+    if (clientCtx) {
+        new Chart(clientCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['DIGITAL', 'IMACX'],
+                datasets: [{
+                    data: [31, 103],
+                    backgroundColor: ['#e68a00', 'rgba(239, 68, 68, 0.5)'],
+                    borderColor: ['#ff9900', '#ef4444'],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'bottom',
+                        labels: {
+                            color: '#fafafa',
+                            font: {
+                                family: 'Geist Mono',
+                                size: 12
+                            }
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(20, 20, 20, 0.9)',
+                        titleColor: '#fafafa',
+                        bodyColor: '#fafafa',
+                        borderColor: '#3f3f3f',
+                        borderWidth: 1,
+                        callbacks: {
+                            label: function(context) {
+                                return context.label + ': ' + context.parsed + ' clientes';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    // Waterfall Charts (Slide 8) - Revenue Breakdown
+    const waterfallDigitalCtx = document.getElementById('waterfallDigital');
+    if (waterfallDigitalCtx) {
+        // DIGITAL: Orçamentos (699) -> Conversão 45.4% -> Faturas (317) -> Ticket €2,958 -> Receita €937,470
+        const digitalQuotes = 699;
+        const digitalInvoices = 317;
+        const digitalTicket = 2958;
+        const digitalRevenue = 937470;
+        
+        // Calculate revenue waterfall components (all values in euros)
+        const digitalPotentialRevenue = digitalQuotes * digitalTicket; // €2,067,642
+        const digitalTheoreticalRevenue = digitalInvoices * digitalTicket; // €937,686 (teórico)
+        const digitalAdjustment = digitalRevenue - digitalTheoreticalRevenue; // €-216 (ajuste)
+        
+        // Simple waterfall showing progression
+        new Chart(waterfallDigitalCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Receita Potencial', 'Receita Após Conversão', 'Receita Final'],
+                datasets: [{
+                    label: 'DIGITAL',
+                    data: [
+                        digitalPotentialRevenue,
+                        digitalTheoreticalRevenue,
+                        digitalRevenue
+                    ],
+                    backgroundColor: [
+                        'rgba(230, 138, 0, 0.4)',  // Receita Potencial
+                        'rgba(230, 138, 0, 0.7)',  // Após Conversão
+                        'rgba(255, 153, 0, 1)'      // Receita Final
+                    ],
+                    borderColor: [
+                        '#e68a00',
+                        '#e68a00',
+                        '#ff9900'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(20, 20, 20, 0.9)',
+                        titleColor: '#fafafa',
+                        bodyColor: '#fafafa',
+                        borderColor: '#3f3f3f',
+                        borderWidth: 1,
+                        callbacks: {
+                            label: function(context) {
+                                const value = context.parsed.y;
+                                const index = context.dataIndex;
+                                if (index === 0) {
+                                    return 'Receita Potencial: €' + value.toLocaleString('pt-PT') + ' (699 orç. × €2,958)';
+                                } else if (index === 1) {
+                                    const lost = digitalPotentialRevenue - value;
+                                    return 'Receita Após Conversão: €' + value.toLocaleString('pt-PT') + ' (317 fat. × €2,958) | Perda: -€' + lost.toLocaleString('pt-PT');
+                                } else {
+                                    return 'Receita Final: €' + value.toLocaleString('pt-PT') + (digitalAdjustment !== 0 ? ' | Ajuste: €' + digitalAdjustment.toLocaleString('pt-PT') : '');
+                                }
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: '#a3a3a3',
+                            font: {
+                                family: 'Geist Mono',
+                                size: 10
+                            },
+                            callback: function(value) {
+                                if (value >= 1000000) {
+                                    return '€' + (value / 1000000).toFixed(1) + 'M';
+                                } else if (value >= 1000) {
+                                    return '€' + (value / 1000).toFixed(0) + 'K';
+                                }
+                                return '€' + value;
+                            }
+                        },
+                        grid: {
+                            color: 'rgba(63, 63, 63, 0.3)'
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: '#a3a3a3',
+                            font: {
+                                family: 'Geist Mono',
+                                size: 9
+                            }
+                        },
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    const waterfallImacxCtx = document.getElementById('waterfallImacx');
+    if (waterfallImacxCtx) {
+        // IMACX: Orçamentos (2836) -> Conversão 54.0% -> Faturas (1530) -> Ticket €1,700 -> Receita €2,600,263
+        const imacxQuotes = 2836;
+        const imacxInvoices = 1530;
+        const imacxTicket = 1700;
+        const imacxRevenue = 2600263;
+        
+        // Calculate revenue waterfall components (all values in euros)
+        const imacxPotentialRevenue = imacxQuotes * imacxTicket; // €4,821,200
+        const imacxTheoreticalRevenue = imacxInvoices * imacxTicket; // €2,601,000 (teórico)
+        const imacxAdjustment = imacxRevenue - imacxTheoreticalRevenue; // €-737 (ajuste)
+        
+        // Simple waterfall showing progression
+        new Chart(waterfallImacxCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Receita Potencial', 'Receita Após Conversão', 'Receita Final'],
+                datasets: [{
+                    label: 'IMACX',
+                    data: [
+                        imacxPotentialRevenue,
+                        imacxTheoreticalRevenue,
+                        imacxRevenue
+                    ],
+                    backgroundColor: [
+                        'rgba(239, 68, 68, 0.3)',  // Receita Potencial
+                        'rgba(239, 68, 68, 0.5)',  // Após Conversão
+                        'rgba(239, 68, 68, 1)'      // Receita Final
+                    ],
+                    borderColor: [
+                        '#ef4444',
+                        '#ef4444',
+                        '#ef4444'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(20, 20, 20, 0.9)',
+                        titleColor: '#fafafa',
+                        bodyColor: '#fafafa',
+                        borderColor: '#3f3f3f',
+                        borderWidth: 1,
+                        callbacks: {
+                            label: function(context) {
+                                const value = context.parsed.y;
+                                const index = context.dataIndex;
+                                if (index === 0) {
+                                    return 'Receita Potencial: €' + value.toLocaleString('pt-PT') + ' (2,836 orç. × €1,700)';
+                                } else if (index === 1) {
+                                    const lost = imacxPotentialRevenue - value;
+                                    return 'Receita Após Conversão: €' + value.toLocaleString('pt-PT') + ' (1,530 fat. × €1,700) | Perda: -€' + lost.toLocaleString('pt-PT');
+                                } else {
+                                    return 'Receita Final: €' + value.toLocaleString('pt-PT') + (imacxAdjustment !== 0 ? ' | Ajuste: €' + imacxAdjustment.toLocaleString('pt-PT') : '');
+                                }
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: '#a3a3a3',
+                            font: {
+                                family: 'Geist Mono',
+                                size: 10
+                            },
+                            callback: function(value) {
+                                if (value >= 1000000) {
+                                    return '€' + (value / 1000000).toFixed(1) + 'M';
+                                } else if (value >= 1000) {
+                                    return '€' + (value / 1000).toFixed(0) + 'K';
+                                }
+                                return '€' + value;
+                            }
+                        },
+                        grid: {
+                            color: 'rgba(63, 63, 63, 0.3)'
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: '#a3a3a3',
+                            font: {
+                                family: 'Geist Mono',
+                                size: 9
+                            }
+                        },
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    // Trends Chart (Slide 10) - Monthly trends
+    const trendsCtx = document.getElementById('trendsChart');
+    if (trendsCtx) {
+        new Chart(trendsCtx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov'],
+                datasets: [{
+                    label: 'DIGITAL Receita (€ mil)',
+                    data: [85, 78, 92, 88, 95, 82, 90, 87, 93, 89, 94],
+                    borderColor: '#ff9900',
+                    backgroundColor: 'rgba(230, 138, 0, 0.1)',
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.4
+                }, {
+                    label: 'IMACX Receita (€ mil)',
+                    data: [220, 235, 240, 230, 245, 238, 250, 242, 248, 240, 260],
+                    borderColor: '#ef4444',
+                    backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top',
+                        labels: {
+                            color: '#fafafa',
+                            font: {
+                                family: 'Geist Mono',
+                                size: 12
+                            }
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(20, 20, 20, 0.9)',
+                        titleColor: '#fafafa',
+                        bodyColor: '#fafafa',
+                        borderColor: '#3f3f3f',
+                        borderWidth: 1,
+                        callbacks: {
+                            label: function(context) {
+                                return context.dataset.label + ': €' + context.parsed.y.toLocaleString('pt-PT') + 'K';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: '#a3a3a3',
+                            font: {
+                                family: 'Geist Mono',
+                                size: 11
+                            },
+                            callback: function(value) {
+                                return '€' + value + 'K';
+                            }
+                        },
+                        grid: {
+                            color: 'rgba(63, 63, 63, 0.3)'
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: '#a3a3a3',
+                            font: {
+                                family: 'Geist Mono',
+                                size: 11
+                            }
+                        },
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+    }
+});
+</script>
+</body>
+</html>

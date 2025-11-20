@@ -70,7 +70,7 @@
     .header-content {
         max-width: var(--max-width);
         margin: 0 auto;
-        padding: 0 20px;
+        padding: 0 60px;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -97,7 +97,7 @@
     }
 
     section {
-        padding: 60px 20px;
+        padding: 60px 60px;
         border-bottom: 1px solid var(--border);
         background: var(--background);
     }
@@ -472,6 +472,21 @@
         h1 { font-size: 2.5rem; }
         .section-title { font-size: 1.8rem; }
         .funnel-wrapper { gap: 40px; }
+        .header-content {
+            padding: 0 20px;
+        }
+        section {
+            padding: 40px 20px;
+        }
+    }
+    
+    @media (max-width: 1200px) {
+        .header-content {
+            padding: 0 40px;
+        }
+        section {
+            padding: 60px 40px;
+        }
     }
 </style>
 </head>
